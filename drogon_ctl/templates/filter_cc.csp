@@ -1,30 +1,21 @@
-/**
- *
- *  [[filename]].cc
- *
- */
+#include "[[filename]].hpp"
 
-#include "[[filename]].h"
-
-using namespace drogon;
 <%c++auto namespaceStr=@@.get<std::string>("namespaceString");
 if(!namespaceStr.empty())
 $$<<"using namespace "<<namespaceStr<<";\n";
 %>
-
-void [[className]]::doFilter(const HttpRequestPtr &req,
-                         FilterCallback &&fcb,
-                         FilterChainCallback &&fccb)
+void [[className]]::doFilter(const dg::HttpRequestPtr& req,
+    dg::FilterCallback&& fcb, dg::FilterChainCallback&& fccb)
 {
-    //Edit your logic here
-    if (1)
+    if (true)
     {
-        //Passed
+        // Passed
         fccb();
         return;
     }
-    //Check failed
-    auto res = drogon::HttpResponse::newHttpResponse();
-    res->setStatusCode(k500InternalServerError);
+
+    // Check failed
+    auto res = dg::HttpResponse::newHttpResponse();
+    res->setStatusCode(dg::k500InternalServerError);
     fcb(res);
 }

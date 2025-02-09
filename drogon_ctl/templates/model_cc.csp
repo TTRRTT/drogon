@@ -8,7 +8,7 @@ using namespace drogon_ctl;
  *
  */
 
-#include "[[className]].h"
+#include "[[className]].hpp"
 <%c++
 std::vector<std::string> relationshipClassNames;
 auto &relationships=@@.get<std::vector<Relationship>>("relationships");
@@ -39,7 +39,7 @@ relationshipClassNames.erase(std::unique(relationshipClassNames.begin(), relatio
 for(std::string &relationshipClassName : relationshipClassNames)
 {
 %>
-#include "{%relationshipClassName%}.h"
+#include "{%relationshipClassName%}.hpp"
 <%c++
 }
 %>

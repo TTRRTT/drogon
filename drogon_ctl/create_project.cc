@@ -118,7 +118,7 @@ void create_project::createProject(const std::string &projectName)
     (void)(r);
     std::ofstream cmakeFile("CMakeLists.txt", std::ofstream::out);
     newCmakeFile(cmakeFile, projectName);
-    std::ofstream mainFile("main.cc", std::ofstream::out);
+    std::ofstream mainFile("main.cpp", std::ofstream::out);
     newMainFile(mainFile);
     drogon::utils::createPath("views");
     drogon::utils::createPath("controllers");
@@ -136,7 +136,7 @@ void create_project::createProject(const std::string &projectName)
     newConfigYamlFile(configYamlFile);
     std::ofstream modelConfigFile("models/model.json", std::ofstream::out);
     newModelConfigFile(modelConfigFile);
-    std::ofstream testMainFile("test/test_main.cc", std::ofstream::out);
+    std::ofstream testMainFile("test/test_main.cpp", std::ofstream::out);
     newTestMainFile(testMainFile);
     std::ofstream testCmakeFile("test/CMakeLists.txt", std::ofstream::out);
     newTestCmakeFile(testCmakeFile, projectName);

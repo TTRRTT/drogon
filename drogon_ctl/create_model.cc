@@ -398,8 +398,8 @@ void create_model::createModelClassFromPG(
     }
 
     data["columns"] = cols;
-    std::ofstream headerFile(path + "/" + className + ".h", std::ofstream::out);
-    std::ofstream sourceFile(path + "/" + className + ".cc",
+    std::ofstream headerFile(path + "/" + className + ".hpp", std::ofstream::out);
+    std::ofstream sourceFile(path + "/" + className + ".cpp",
                              std::ofstream::out);
     auto templ = DrTemplateBase::newTemplate("model_h.csp");
     headerFile << templ->genText(data);
@@ -594,8 +594,8 @@ void create_model::createModelClassFromMysql(
         data["primaryKeyValNames"] = pkValNames;
     }
     data["columns"] = cols;
-    std::ofstream headerFile(path + "/" + className + ".h", std::ofstream::out);
-    std::ofstream sourceFile(path + "/" + className + ".cc",
+    std::ofstream headerFile(path + "/" + className + ".hpp", std::ofstream::out);
+    std::ofstream sourceFile(path + "/" + className + ".cpp",
                              std::ofstream::out);
     auto templ = DrTemplateBase::newTemplate("model_h.csp");
     headerFile << templ->genText(data);
@@ -775,8 +775,8 @@ void create_model::createModelClassFromSqlite3(
         data["primaryKeyValNames"] = pkValNames;
     }
     data["columns"] = cols;
-    std::ofstream headerFile(path + "/" + className + ".h", std::ofstream::out);
-    std::ofstream sourceFile(path + "/" + className + ".cc",
+    std::ofstream headerFile(path + "/" + className + ".hpp", std::ofstream::out);
+    std::ofstream sourceFile(path + "/" + className + ".cpp",
                              std::ofstream::out);
     auto templ = DrTemplateBase::newTemplate("model_h.csp");
     headerFile << templ->genText(data);
@@ -1291,8 +1291,8 @@ void create_model::createRestfulAPIController(
         dir += '/';
     }
     {
-        std::string headFileName = dir + ctlName + "Base.h";
-        std::string sourceFilename = dir + ctlName + "Base.cc";
+        std::string headFileName = dir + ctlName + "Base.hpp";
+        std::string sourceFilename = dir + ctlName + "Base.cpp";
         // {
         //     std::ifstream iHeadFile(headFileName.c_str(), std::ifstream::in);
         //     std::ifstream iSourceFile(sourceFilename.c_str(),
@@ -1343,8 +1343,8 @@ void create_model::createRestfulAPIController(
     }
     if (!genBaseOnly)
     {
-        std::string headFileName = dir + ctlName + ".h";
-        std::string sourceFilename = dir + ctlName + ".cc";
+        std::string headFileName = dir + ctlName + ".hpp";
+        std::string sourceFilename = dir + ctlName + ".cpp";
         if (!forceOverwrite_)
         {
             std::ifstream iHeadFile(headFileName.c_str(), std::ifstream::in);

@@ -1,32 +1,24 @@
-/**
- *
- *  [[filename]].h
- *
- */
-
 #pragma once
 
 #include <drogon/HttpFilter.h>
-using namespace drogon;
+
+namespace dg = drogon;
+
 <%c++
 auto namespaceVector=@@.get<std::vector<std::string>>("namespaceVector");
-if(namespaceVector.empty())
-$$<<"\n";
+if(!namespaceVector.empty())
 for(auto &namespaceName:namespaceVector){%>
 namespace {%namespaceName%}
+{
+<%c++}%>
+class [[className]] : public dg::HttpFilter<[[className]]>
+{
+public:
+    [[className]]() { }
 
-{
-<%c++}
-$$<<"\n";%>
-class [[className]] : public HttpFilter<[[className]]>
-{
-  public:
-    [[className]]() {}
-    void doFilter(const HttpRequestPtr &req,
-                  FilterCallback &&fcb,
-                  FilterChainCallback &&fccb) override;
+    void doFilter(const dg::HttpRequestPtr& req, dg::FilterCallback&& fcb,
+        dg::FilterChainCallback&& fccb) override;
 };
-
 <%c++for(size_t i=0;i<namespaceVector.size();i++){%>
 }
 <%c++}%>

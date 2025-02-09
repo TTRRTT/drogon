@@ -98,7 +98,7 @@ void create_controller::newSimpleControllerHeaderFile(
     file << "\n";
     file << "#include <drogon/HttpSimpleController.h>\n";
     file << "\n";
-    file << "using namespace drogon;\n";
+    file << "namespace dg = drogon;\n";
     file << "\n";
     std::string class_name = className;
     std::string namepace_path = "/";
@@ -117,15 +117,13 @@ void create_controller::newSimpleControllerHeaderFile(
     file << "class " << class_name << " : public drogon::HttpSimpleController<"
          << class_name << ">\n";
     file << "{\n";
-    file << "  public:\n";
-    file << "    void asyncHandleHttpRequest(const HttpRequestPtr& "
-            "req, std::function<void (const HttpResponsePtr &)> &&callback) "
-            "override;\n";
+    file << "public:\n";
+    file << "    void asyncHandleHttpRequest(const dg::HttpRequestPtr& req,"
+            "       std::function<void (const dg::HttpResponsePtr&)>&& callback)"
+            " override;\n\n";
 
     file << "    PATH_LIST_BEGIN\n";
-    file << "    // list path definitions here;\n";
-    file << "    "
-            "// PATH_ADD(\"/"
+    file << "       // PATH_ADD(\"/"
             "path\", \"filter1\", \"filter2\", HttpMethod1, HttpMethod2...);\n";
     file << "    PATH_LIST_END\n";
     file << "};\n";
@@ -141,7 +139,7 @@ void create_controller::newSimpleControllerSourceFile(
     const std::string &className,
     const std::string &filename)
 {
-    file << "#include \"" << filename << ".h\"\n";
+    file << "#include \"" << filename << ".hpp\"\n";
     file << "\n";
     auto pos = className.rfind("::");
     auto class_name = className;
@@ -153,10 +151,10 @@ void create_controller::newSimpleControllerSourceFile(
         class_name = className.substr(pos + 2);
     }
     file << "void " << class_name
-         << "::asyncHandleHttpRequest(const HttpRequestPtr& req, "
-            "std::function<void (const HttpResponsePtr &)> &&callback)\n";
+         << "::asyncHandleHttpRequest(const dg::HttpRequestPtr& req,\n"
+            "   std::function<void (const dg::HttpResponsePtr&)>&& callback)\n";
     file << "{\n";
-    file << "    // write your application logic here\n";
+    file << "\n";
     file << "}\n";
 }
 
@@ -214,7 +212,7 @@ void create_controller::newWebsockControllerSourceFile(
     const std::string &className,
     const std::string &filename)
 {
-    file << "#include \"" << filename << ".h\"\n";
+    file << "#include \"" << filename << ".hpp\"\n";
     file << "\n";
     auto pos = className.rfind("::");
     auto class_name = className;
@@ -311,7 +309,7 @@ void create_controller::newHttpControllerSourceFile(
     const std::string &className,
     const std::string &filename)
 {
-    file << "#include \"" << filename << ".h\"\n";
+    file << "#include \"" << filename << ".hpp\"\n";
     file << "\n";
     auto pos = className.rfind("::");
     auto class_name = className;
@@ -350,8 +348,8 @@ void create_controller::createController(const std::string &className,
     std::string ctlName =
         std::regex_replace(className, regex, std::string("_"));
 
-    std::string headFileName = ctlName + ".h";
-    std::string sourceFilename = ctlName + ".cc";
+    std::string headFileName = ctlName + ".hpp";
+    std::string sourceFilename = ctlName + ".cpp";
     {
         std::ifstream iHeadFile(headFileName.c_str(), std::ifstream::in);
         std::ifstream iSourceFile(sourceFilename.c_str(), std::ifstream::in);
@@ -406,8 +404,8 @@ void create_controller::createARestfulController(const std::string &className,
     std::string ctlName =
         std::regex_replace(className, regex, std::string("_"));
 
-    std::string headFileName = ctlName + ".h";
-    std::string sourceFilename = ctlName + ".cc";
+    std::string headFileName = ctlName + ".hpp";
+    std::string sourceFilename = ctlName + ".cpp";
     {
         std::ifstream iHeadFile(headFileName.c_str(), std::ifstream::in);
         std::ifstream iSourceFile(sourceFilename.c_str(), std::ifstream::in);
@@ -466,6 +464,6 @@ void create_controller::createARestfulController(const std::string &className,
     }
     std::cout << "Create a http restful API controller: " << className
               << std::endl;
-    std::cout << "File name: " << ctlName << ".h and " << ctlName << ".cc"
+    std::cout << "File name: " << ctlName << ".hpp and " << ctlName << ".cppc"
               << std::endl;
 }
